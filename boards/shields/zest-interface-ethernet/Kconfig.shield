@@ -1,5 +1,5 @@
 # Copyright (c) 2024 CATIE
 # SPDX-License-Identifier: Apache-2.0
 
-config SHIELD_ZEST-INTERFACE-ETHERNET
-	def_bool $(shields_list_contains,zest-interface-ethernet)
+config SHIELD_ZEST_INTERFACE_ETHERNET
+	def_bool $(shields_list_contains,zest_interface_ethernet)

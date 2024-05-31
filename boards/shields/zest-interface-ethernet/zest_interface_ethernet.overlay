@@ -2,3 +2,15 @@
  * Copyright (c) 2024, CATIE
  * SPDX-License-Identifier: Apache-2.0
  */
+
+#include <zephyr/dt-bindings/gpio/sixtron-header.h>
+
+&sixtron_spi {
+    enc424j600_link_board_eth: enc424j600@0 {
+		compatible = "microchip,enc424j600";
+		spi-max-frequency = <14000000>;
+		int-gpios = <&sixtron_connector DIO2 GPIO_ACTIVE_LOW>;	/* D9 */
+		status = "okay";
+		reg = <0>;
+	};
+}
