@@ -5,8 +5,14 @@
 
 #include <zephyr/dt-bindings/gpio/sixtron-header.h>
 
+/ {
+	aliases {
+		enc424j600 = &enc424j600_zest_interface_ethernet;
+	};
+};
+
 &sixtron_spi {
-    enc424j600_link_board_eth: enc424j600@0 {
+    enc424j600_zest_interface_ethernet: enc424j600@0 {
 		compatible = "microchip,enc424j600";
 		spi-max-frequency = <14000000>;
 		int-gpios = <&sixtron_connector DIO2 GPIO_ACTIVE_LOW>;
