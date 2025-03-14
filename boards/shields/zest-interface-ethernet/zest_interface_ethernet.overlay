@@ -5,18 +5,20 @@
 
 #include <zephyr/dt-bindings/gpio/sixtron-header.h>
 
-/ {
-	aliases {
-		enc424j600 = &enc424j600_zest_interface_ethernet;
-	};
-};
+#define PERIPHERAL_ZEST_INTERFACE_ETHERNET(port) \
+	spi_zest_interface_ethernet_##port: &sixtron_connector_##port##_spi {};
 
-&sixtron_spi {
-	enc424j600_zest_interface_ethernet: enc424j600@0 {
-		compatible = "microchip,enc424j600";
-		spi-max-frequency = <14000000>;
-		int-gpios = <&sixtron_connector DIO2 GPIO_ACTIVE_LOW>;
-		status = "okay";
-		reg = <0>;
+#define DRIVERS_ZEST_INTERFACE_ETHERNET(port) \
+	&spi_zest_interface_ethernet_##port { \
+		enc424j600_zest_interface_ethernet_##port: enc424j600##port@0 { \
+			compatible = "microchip,enc424j600"; \
+			spi-max-frequency = <14000000>; \
+			int-gpios = <&sixtron_connector_##port DIO2 GPIO_ACTIVE_LOW>; \
+			status = "okay"; \
+			reg = <0>; \
+		}; \
 	};
-};
+
+#define ZEST_INTERFACE_ETHERNET(port) \
+	PERIPHERAL_ZEST_INTERFACE_ETHERNET(port) \
+	DRIVERS_ZEST_INTERFACE_ETHERNET(port)
