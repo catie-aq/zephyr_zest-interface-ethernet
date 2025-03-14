@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2024, CATIE
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include <zephyr/dt-bindings/gpio/sixtron-header.h>
+
+#define PERIPHERAL_ZEST_INTERFACE_ETHERNET_ALT(port) \
+	spi_zest_interface_ethernet_##port: &sixtron_connector_##port##_spi {};
+
+#define DRIVERS_ZEST_INTERFACE_ETHERNET_ALT(port, nss_pin, irq_pin) \
+	&spi_zest_interface_ethernet_##port { \
+		cs-gpios = <&sixtron_connector_##port nss_pin GPIO_ACTIVE_LOW>; \
+	}; \
+	&spi_zest_interface_ethernet_##port { \
+		enc424j600_zest_interface_ethernet_##port: enc424j600##port@##port { \
+			compatible = "microchip,enc424j600"; \
+			spi-max-frequency = <14000000>; \
+			int-gpios = <&sixtron_connector_##port irq_pin GPIO_ACTIVE_LOW>; \
+			status = "okay"; \
+			reg = <##inst>; \
+		}; \
+	};
+
+#define ZEST_INTERFACE_ETHERNET_ALT(port, nss, irq) \
+	PERIPHERAL_ZEST_INTERFACE_ETHERNET_ALT(port) \
+	DRIVERS_ZEST_INTERFACE_ETHERNET_ALT(port, nss, irq)
