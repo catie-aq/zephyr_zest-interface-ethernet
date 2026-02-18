@@ -18,7 +18,7 @@ This board enables the following interfaces:
   Replace `port` with the number of the Zest_Core port to which the shield is connected, e.g.:
 
   ```c
-  ZEST_INTERFACE_ETHERNET(1) /* Zest_Display_LCD connected to Zest_Core first port */
+  ZEST_INTERFACE_ETHERNET(1) /* Zest_Interface_Ethernet connected to Zest_Core first port */
   ```
 
 - Activate support for the shield by adding `--shield zest_interface_ethernet` to the west command.
